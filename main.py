@@ -1006,7 +1006,7 @@ def interactive_menu(
                     cname = r.get("class_name", "").lower()
                     counts[cname] = counts.get(cname, 0) + 1
                 print("\n" + "=" * 72)
-                print("               LATEST SESSION SUMMARY (FROM CSV)                ")
+                print("               LATEST SESSION SUMMARY                 ")
                 print("=" * 72)
                 print(f" Session ID:    {latest_session_id}")
                 print(f" Source:        {session_rows[0].get('source_name')} ({session_rows[0].get('source_type')})")
