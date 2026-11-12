@@ -1,0 +1,39 @@
+# Python & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Recordings and session evidence
+recordings/
+logs/
+*.log
+
+# Large weights and model checkpoints
+*.pt
+*.pth
+*.onnx
+models/training_runs/
+
+# Temporary files
+*.tmp
+.DS_Store
+Thumbs.db
+
+
+# Local detection records
+waste_detections.csv
+
+# Secrets and environment configuration
+.env
+.env.*
+!.env.example
+
+# Generated datasets and outputs
+datasets/
+outputs/
+training/datasets/
+training/weights/
+training/runs/

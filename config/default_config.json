@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "categories": [
+    {"id": 0, "internal_name": "paper", "display_name": "Paper", "default_confidence": 0.45},
+    {"id": 1, "internal_name": "cardboard", "display_name": "Cardboard", "default_confidence": 0.45},
+    {"id": 2, "internal_name": "plastic_bottle", "display_name": "Plastic Bottle", "default_confidence": 0.45},
+    {"id": 3, "internal_name": "polythene_bag", "display_name": "Polythene Bag", "default_confidence": 0.45},
+    {"id": 4, "internal_name": "metal", "display_name": "Metal", "default_confidence": 0.45},
+    {"id": 5, "internal_name": "glass", "display_name": "Glass", "default_confidence": 0.45},
+    {"id": 6, "internal_name": "organic_waste", "display_name": "Organic Waste", "default_confidence": 0.45},
+    {"id": 7, "internal_name": "general_trash", "display_name": "General Trash", "default_confidence": 0.45}
+  ],
+  "unknown_settings": {
+    "display_name": "Unknown",
+    "internal_name": "unknown",
+    "candidate_confidence_min": 0.25
+  },
+  "performance": {
+    "processing_resolution": [416, 416],
+    "frame_skip": 2,
+    "adaptive_performance": true,
+    "target_fps": 5.0
+  },
+  "tracking": {
+    "iou_threshold": 0.35,
+    "lost_track_timeout_seconds": 3.0,
+    "min_hits": 1
+  },
+  "recording": {
+    "record_live_sessions": false,
+    "video_codec": "mp4v",
+    "target_fps": 25.0
+  },
+  "storage": {
+    "save_sessions_to_disk": false,
+    "recordings_dir": "recordings",
+    "save_evidence_images": false,
+    "evidence_format": "jpg",
+    "evidence_quality": 92,
+    "storage_warning_threshold_mb": 1000,
+    "auto_retention_enabled": false,
+    "retention_max_days": 30,
+    "retention_max_storage_mb": 5000
+  },
+  "camera": {
+    "default_camera_index": 0,
+    "max_reconnect_attempts": 5,
+    "reconnect_initial_delay_sec": 2.0,
+    "reconnect_max_delay_sec": 15.0
+  },
+  "models": {
+    "models_dir": "models",
+    "active_model_id": "mock_waste_detector_v1"
+  }
+}
+

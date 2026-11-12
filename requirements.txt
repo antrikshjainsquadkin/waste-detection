@@ -1,0 +1,12 @@
+# Waste Detection System - Technology Stack
+# Local CPU-first terminal application using YOLO11m
+
+ultralytics>=8.3.0
+torch>=2.0.0
+torchvision>=0.15.0
+opencv-python>=4.8.0
+huggingface-hub>=0.20.0
+lap>=0.5.12
+pillow>=10.0.0
+numpy>=1.24.0
+pyyaml>=6.0
