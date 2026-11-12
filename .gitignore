@@ -34,6 +34,5 @@ waste_detections.csv
 # Generated datasets and outputs
 datasets/
 outputs/
-training/datasets/
-training/weights/
-training/runs/
+training/
+tests/
