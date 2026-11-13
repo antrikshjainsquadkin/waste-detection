@@ -350,6 +350,17 @@ class NonWasteVerifier:
                     worst_reason = f"corroborated_by_{corr_cls}"
                     continue
 
+                # High-confidence waste held by a person (e.g. large plastic bag) should not be
+                # rejected by a weaker/moderate COCO person box overlapping the hand/arm.
+                high_conf_held_waste = (
+                    nw_cls in self.PERSON_CLASSES
+                    and cand.confidence >= 0.80
+                    and nw_conf < 0.80
+                )
+                if high_conf_held_waste:
+                    worst_reason = f"high_conf_waste_near_{nw_cls}"
+                    continue
+
                 # Evaluation rules:
                 # 1. Strong human/animal match (candidate box matches person/animal extent)
                 if iou >= self.rejection_iou and ioa >= 0.60 and rel_area >= self.relative_area_threshold:
@@ -358,8 +369,15 @@ class NonWasteVerifier:
                     max_ioa, max_iou, max_rel_area = ioa, iou, rel_area
                     matched_cls, matched_conf = nw_cls, nw_conf
                     break
-                # 2. Large candidate enclosed inside person/animal box (torso/body false positive)
-                elif ioa >= 0.80 and rel_area >= 0.38:
+                # 2. Candidate enclosed inside person/animal box (torso/body or low-conf hand/arm FP)
+                elif (ioa >= 0.80 and rel_area >= 0.38) or (
+                    nw_cls in self.PERSON_CLASSES
+                    and corr_cls is None
+                    and ioa >= 0.85
+                    and rel_area >= 0.25
+                    and nw_conf >= 0.40
+                    and cand.confidence < 0.65
+                ):
                     worst_state = VerificationState.REJECTED
                     worst_reason = f"enclosed_in_{nw_cls} (IoA={ioa:.2f}, rel_area={rel_area:.2f})"
                     max_ioa, max_iou, max_rel_area = ioa, iou, rel_area
@@ -377,6 +395,8 @@ class NonWasteVerifier:
             # 4. Non-biological false positives: strict 1:1 mutual match with furniture/vehicles (e.g. chair/table/car)
             if worst_state == VerificationState.ACCEPTED and corr_cls is None:
                 for fv_cls, fv_conf, fv_box in furniture_vehicle_boxes:
+                    if cand.confidence >= 0.80 and fv_conf < cand.confidence:
+                        continue
                     iou, ioa, rel_area = compute_box_overlap(cand_box, fv_box)
                     if iou >= 0.55 and ioa >= 0.75 and fv_conf >= 0.50:
                         worst_state = VerificationState.REJECTED

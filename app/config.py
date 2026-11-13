@@ -83,6 +83,12 @@ class AppConfig:
         return float(trk.get("lost_track_timeout_seconds", 3.0))
 
     @property
+    def min_confirmation_frames(self) -> int:
+        """Minimum frames a tracked object must persist before emitting a DetectionEvent."""
+        trk = self._data.get("tracking", {})
+        return max(1, int(trk.get("min_confirmation_frames", 3)))
+
+    @property
     def csv_path(self) -> Path:
         """Single persistent detections CSV file in project root."""
         st = self._data.get("storage", {})

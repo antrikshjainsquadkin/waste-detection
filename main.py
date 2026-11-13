@@ -475,6 +475,8 @@ def run_session(
             iou_threshold=config.iou_threshold,
             lost_track_timeout=config.lost_track_timeout_seconds,
             on_new_event=on_new_event,
+            source_fps=source.native_fps if source.source_type == "video_file" else None,
+            min_confirmation_frames=config.min_confirmation_frames if source.source_type != "image" else 1,
         )
 
     # Initialize visual preview window if enabled
