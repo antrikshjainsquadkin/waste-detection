@@ -12,7 +12,6 @@ logs/
 *.log
 
 # Large weights and model checkpoints
-*.pt
 *.pth
 *.onnx
 models/training_runs/
